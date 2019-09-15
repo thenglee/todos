@@ -6,11 +6,11 @@ class TodosController < ApplicationController
   end
 
   def index
-    @todos = Todo.all
+    @todos = Todo.where(email: session[:current_email])
   end
 
   def create
-    @todo = Todo.create(todo_params)
+    Todo.create(todo_params.merge(email: session[:current_email]))
     redirect_to todos_path
   end
 
